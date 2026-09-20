@@ -1,0 +1,14 @@
+.idea/
+.vscode/
+**/node_modules/
+**/dist/
+**/target/
+**/*.tsbuildinfo
+**/__pycache__/
+**/*.py[cod]
+.pytest_cache/
+.migration-state/
+migration/.venv/
+deploy/.env
+playwright-report/
+test-results/

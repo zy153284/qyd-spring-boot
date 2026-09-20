@@ -1,0 +1,6 @@
+logging:
+  level:
+    com.qyd: DEBUG
+spring:
+  jpa:
+    show-sql: true

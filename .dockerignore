@@ -1,0 +1,12 @@
+**/node_modules
+**/dist
+**/target
+**/.git
+**/.idea
+**/.vscode
+**/__pycache__
+**/*.tsbuildinfo
+**/.env
+.migration-state
+playwright-report
+test-results

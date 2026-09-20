@@ -1,0 +1,69 @@
+name: qyd-platform
+services:
+  mysql:
+    image: mysql:8.4
+    environment:
+      MYSQL_DATABASE: qyd_platform
+      MYSQL_USER: qyd
+      MYSQL_PASSWORD: ${DB_PASSWORD:?set DB_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:?set MYSQL_ROOT_PASSWORD}
+    command: ["--character-set-server=utf8mb4","--collation-server=utf8mb4_0900_ai_ci"]
+    volumes: [mysql-data:/var/lib/mysql]
+    healthcheck:
+      test: ["CMD-SHELL","mysqladmin ping -h localhost -uroot -p$$MYSQL_ROOT_PASSWORD --silent"]
+      interval: 10s
+      timeout: 5s
+      retries: 12
+    restart: unless-stopped
+
+  redis:
+    image: redis:7.4-alpine
+    command: ["redis-server","--appendonly","yes","--requirepass","${REDIS_PASSWORD:?set REDIS_PASSWORD}"]
+    volumes: [redis-data:/data]
+    healthcheck:
+      test: ["CMD-SHELL","redis-cli -a '$${REDIS_PASSWORD}' ping | grep PONG"]
+      interval: 10s
+      timeout: 3s
+      retries: 12
+    environment: [REDIS_PASSWORD=${REDIS_PASSWORD:?set REDIS_PASSWORD}]
+    restart: unless-stopped
+
+  backend:
+    build: { context: .., dockerfile: deploy/backend.Dockerfile }
+    environment:
+      DB_URL: jdbc:mysql://mysql:3306/qyd_platform?useUnicode=true&characterEncoding=utf8&serverTimezone=UTC
+      DB_USERNAME: qyd
+      DB_PASSWORD: ${DB_PASSWORD:?set DB_PASSWORD}
+      JWT_SECRET: ${JWT_SECRET:?set JWT_SECRET}
+      QYD_ADMIN_USERNAME: ${QYD_ADMIN_USERNAME:-admin}
+      QYD_ADMIN_PASSWORD: ${QYD_ADMIN_PASSWORD:?set QYD_ADMIN_PASSWORD}
+      CORS_ALLOWED_ORIGINS: ${CORS_ALLOWED_ORIGINS:-http://localhost:8081,http://localhost:8082}
+      SPRING_DATA_REDIS_HOST: redis
+      SPRING_DATA_REDIS_PASSWORD: ${REDIS_PASSWORD:?set REDIS_PASSWORD}
+    depends_on:
+      mysql: { condition: service_healthy }
+      redis: { condition: service_healthy }
+    ports: ["8080:8080"]
+    healthcheck:
+      test: ["CMD","curl","-fsS","http://localhost:8080/actuator/health/readiness"]
+      interval: 15s
+      timeout: 5s
+      start_period: 45s
+      retries: 5
+    restart: unless-stopped
+
+  user-web:
+    build: { context: .., dockerfile: deploy/user.Dockerfile }
+    depends_on: { backend: { condition: service_healthy } }
+    ports: ["8081:80"]
+    restart: unless-stopped
+
+  admin-web:
+    build: { context: .., dockerfile: deploy/admin.Dockerfile }
+    depends_on: { backend: { condition: service_healthy } }
+    ports: ["8082:80"]
+    restart: unless-stopped
+
+volumes:
+  mysql-data:
+  redis-data:

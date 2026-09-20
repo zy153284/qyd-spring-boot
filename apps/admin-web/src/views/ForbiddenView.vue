@@ -1,0 +1,1 @@
+<template><div class="page state-box"><el-result icon="warning" title="无权访问" sub-title="当前角色缺少该页面所需权限，且不会通过刷新令牌重复尝试。"><template #extra><el-button type="primary" @click="$router.replace('/dashboard')">返回仪表盘</el-button></template></el-result></div></template>

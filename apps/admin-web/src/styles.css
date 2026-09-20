@@ -1,0 +1,16 @@
+:root { font-family: Inter, "PingFang SC", "Microsoft YaHei", sans-serif; color: #182230; background: #f4f7fb; }
+* { box-sizing: border-box; }
+html, body, #app { height: 100%; margin: 0; }
+.page { padding: 24px; min-height: 100%; }
+.page-header { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 20px; }
+.page-header h2 { margin: 0; font-size: 22px; }
+.muted { color: #7b8794; font-size: 13px; }
+.toolbar { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; margin-bottom: 16px; }
+.panel { background: #fff; border: 1px solid #e8edf4; border-radius: 12px; padding: 20px; }
+.danger-note { margin-bottom: 16px; }
+.state-box { min-height: 220px; display: grid; place-items: center; }
+.metric-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; }
+.metric-card { border: 0 !important; box-shadow: 0 5px 20px rgb(24 34 48 / 6%); }
+.metric-number { font-size: 28px; font-weight: 700; margin-top: 12px; }
+@media (max-width: 900px) { .metric-grid { grid-template-columns: repeat(2, 1fr); } .page { padding: 16px; } }
+@media (max-width: 520px) { .metric-grid { grid-template-columns: 1fr; } .page-header { align-items: flex-start; flex-direction: column; } }

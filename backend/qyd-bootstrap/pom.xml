@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0">
+    <modelVersion>4.0.0</modelVersion>
+    <parent><groupId>com.qyd</groupId><artifactId>qyd-platform-backend</artifactId><version>1.0.0-SNAPSHOT</version></parent>
+    <artifactId>qyd-bootstrap</artifactId>
+    <dependencies>
+        <dependency><groupId>com.qyd</groupId><artifactId>qyd-shared-kernel</artifactId><version>${project.version}</version></dependency>
+        <dependency><groupId>com.qyd</groupId><artifactId>qyd-auth</artifactId><version>${project.version}</version></dependency>
+        <dependency><groupId>com.qyd</groupId><artifactId>qyd-venue</artifactId><version>${project.version}</version></dependency>
+        <dependency><groupId>com.qyd</groupId><artifactId>qyd-product</artifactId><version>${project.version}</version></dependency>
+        <dependency><groupId>com.qyd</groupId><artifactId>qyd-order</artifactId><version>${project.version}</version></dependency>
+        <dependency><groupId>com.qyd</groupId><artifactId>qyd-payment</artifactId><version>${project.version}</version></dependency>
+        <dependency><groupId>com.qyd</groupId><artifactId>qyd-marketing</artifactId><version>${project.version}</version></dependency>
+        <dependency><groupId>com.qyd</groupId><artifactId>qyd-content</artifactId><version>${project.version}</version></dependency>
+        <dependency><groupId>com.qyd</groupId><artifactId>qyd-settlement</artifactId><version>${project.version}</version></dependency>
+        <dependency><groupId>com.qyd</groupId><artifactId>qyd-risk</artifactId><version>${project.version}</version></dependency>
+        <dependency><groupId>com.qyd</groupId><artifactId>qyd-infrastructure</artifactId><version>${project.version}</version></dependency>
+        <dependency><groupId>org.springframework.boot</groupId><artifactId>spring-boot-starter-actuator</artifactId></dependency>
+        <dependency><groupId>org.springframework.modulith</groupId><artifactId>spring-modulith-starter-core</artifactId></dependency>
+        <dependency><groupId>org.springdoc</groupId><artifactId>springdoc-openapi-starter-webmvc-ui</artifactId></dependency>
+        <dependency><groupId>com.h2database</groupId><artifactId>h2</artifactId><scope>test</scope></dependency>
+        <dependency><groupId>org.springframework.boot</groupId><artifactId>spring-boot-starter-test</artifactId><scope>test</scope></dependency>
+        <dependency><groupId>org.springframework.security</groupId><artifactId>spring-security-test</artifactId><scope>test</scope></dependency>
+        <dependency><groupId>org.springframework.modulith</groupId><artifactId>spring-modulith-starter-test</artifactId><scope>test</scope></dependency>
+        <dependency><groupId>com.tngtech.archunit</groupId><artifactId>archunit-junit5</artifactId><version>${archunit.version}</version><scope>test</scope></dependency>
+    </dependencies>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId><artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration><mainClass>com.qyd.bootstrap.QydApplication</mainClass></configuration>
+                <executions><execution><goals><goal>repackage</goal></goals></execution></executions>
+            </plugin>
+        </plugins>
+    </build>
+</project>
