@@ -12,3 +12,5 @@ migration/.venv/
 deploy/.env
 playwright-report/
 test-results/
+
+**/build/

@@ -1,0 +1,15 @@
+* text=auto
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.webp binary
+*.ico binary
+*.jar binary
+*.class binary
+*.pdf binary
+*.zip binary
+*.tar.gz binary
+*.gz binary
+*.mp4 binary
+*.mp3 binary
